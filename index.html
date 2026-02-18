@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
+<meta charset="UTF-8">
 <title>Аккаунты FunPay</title>
 <style>
   body {
@@ -26,11 +27,11 @@
     text-decoration: none;
     font-size: 18px;
     word-break: break-word;
-    padding: 10px 0;              /* отступ сверху и снизу текста */
-    border-bottom: 1px solid #555; /* тонкая серая линия */
+    padding: 10px 0;
+    border-bottom: 1px solid #555;
   }
   a:last-child {
-    border-bottom: none;          /* убираем линию после последнего лота */
+    border-bottom: none;
   }
   a:hover {
     opacity: 0.8;
@@ -39,23 +40,28 @@
 </head>
 <body>
 
-<div class="container">
-
-<!-- Примеры лотов -->
-<a href="https://drive.google.com/drive/folders/1Oa-joOHSTCA7pqbq48pcG4SjABvlmKct" target="_blank">
-▒▓██💎Progetto46💎EMIL1951💥𝟏𝟎 𝐲𝐩 (x3)💥 12𝙋𝙍𝙀𝙈'ов⚠️12k бoн ⚠️⁠██▓▒
-</a>
-
-<a href="https://drive.google.com/drive/folders/1zNF1aG_GUVVztyPkw1pvzATKJmPXPHmc" target="_blank">
-▒▓██💎СУ-130ПM💎TST💥 𝟏𝟎 𝐲𝐩 (x3) 💥 11 𝙋𝙍𝙀𝙈 тaнкoв  ⚠️7k бoн ⚠️█⁠█▓▒
-</a>
-
-<!-- Добавляй новые лоты так же -->
-<!--
-<a href="ССЫЛКА_НА_ЛОТ" target="_blank">ТЕКСТ С FUNPAY</a>
--->
-
+<div class="container" id="lotContainer">
+  <!-- Лоты будут добавляться автоматически -->
 </div>
+
+<script>
+  // Вставляешь сюда новые лоты в формате: ["ссылка, название"]
+  const lots = [
+    "https://drive.google.com/drive/folders/1Oa-joOHSTCA7pqbq48pcG4SjABvlmKct, 💎Progetto46💎EMIL1951💥𝟏𝟎 𝐲𝐩 (x3)💥 12𝙋𝙍𝙀𝙈'ов⚠️12k бoн ⚠️",
+    "https://drive.google.com/drive/folders/1zNF1aG_GUVVztyPkw1pvzATKJmPXPHmc, 💎СУ-130ПM💎TST💥 𝟏𝟎 𝐲𝐩 (x3) 💥 11 𝙋𝙍𝙀𝙈 тaнкoв ⚠️7k бoн⚠️"
+  ];
+
+  const container = document.getElementById("lotContainer");
+
+  lots.forEach(item => {
+    const [url, name] = item.split(",");
+    const a = document.createElement("a");
+    a.href = url.trim();
+    a.target = "_blank";
+    a.textContent = name.trim();
+    container.appendChild(a);
+  });
+</script>
 
 </body>
 </html>
