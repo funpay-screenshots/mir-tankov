@@ -45,8 +45,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/tabletop@1.6.0/src/tabletop.min.js"></script>
 <script>
-  // Вставь сюда свой ID Google Sheet
-  const publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1jR39CO9Fmp11gm3Mkom4xA-eD8kdqqO5GvT2xH1PnQM/edit?usp=sharing';
+  const publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/ТВОЙ_ID/edit?usp=sharing';
 
   function init() {
     Tabletop.init({
@@ -55,10 +54,13 @@
     }).then(function(data) {
       const container = document.getElementById('lotContainer');
       data.forEach(row => {
+        // Берём первые две колонки по индексу
+        const url = row[Object.keys(row)[0]];    // первая колонка
+        const name = row[Object.keys(row)[1]];   // вторая колонка
         const a = document.createElement('a');
-        a.href = row.Ссылка.trim();
+        a.href = url.trim();
         a.target = "_blank";
-        a.textContent = row.Название.trim();
+        a.textContent = name.trim();
         container.appendChild(a);
       });
     }).catch(err => console.error(err));
