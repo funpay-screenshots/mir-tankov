@@ -2,7 +2,6 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta charset="UTF-8">
 <title>Аккаунты FunPay</title>
 <style>
   body {
@@ -41,27 +40,31 @@
 <body>
 
 <div class="container" id="lotContainer">
-  <!-- Лоты будут добавляться автоматически -->
+  <!-- Лоты будут загружаться автоматически -->
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/tabletop@1.6.0/src/tabletop.min.js"></script>
 <script>
-  // Вставляешь сюда новые лоты в формате: ["ссылка, название"]
-  const lots = [
-    "https://drive.google.com/drive/folders/1Oa-joOHSTCA7pqbq48pcG4SjABvlmKct; ▒▓██💎Progetto46💎EMIL1951💥𝟏𝟎 𝐲𝐩 (x3)💥 12𝙋𝙍𝙀𝙈'ов⚠️12k бoн ⚠️⁠██▓▒",
-    "https://drive.google.com/drive/folders/1zNF1aG_GUVVztyPkw1pvzATKJmPXPHmc; ▒▓██💎СУ-130ПM💎TST💥 𝟏𝟎 𝐲𝐩 (x3) 💥 11 𝙋𝙍𝙀𝙈 тaнкoв  ⚠️7k бoн ⚠️█⁠█▓▒",
-    "https://drive.google.com/drive/folders/1fmroGBgT6rR6XzTHB6EpT15qkhDRsrdR; ▒▓██🆘Turtle I🆘СУ-130ПM🆘Doppel🆘𝟏𝟎𝐲𝐩 (x3)🆘12 𝙋𝙍𝙀𝙈⚠️7k бoн ⁠██▓▒",
-  ];
+  // Вставь сюда свой ID Google Sheet
+  const publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1jR39CO9Fmp11gm3Mkom4xA-eD8kdqqO5GvT2xH1PnQM/edit?usp=sharing';
 
-  const container = document.getElementById("lotContainer");
+  function init() {
+    Tabletop.init({
+      key: publicSpreadsheetUrl,
+      simpleSheet: true
+    }).then(function(data) {
+      const container = document.getElementById('lotContainer');
+      data.forEach(row => {
+        const a = document.createElement('a');
+        a.href = row.Ссылка.trim();
+        a.target = "_blank";
+        a.textContent = row.Название.trim();
+        container.appendChild(a);
+      });
+    }).catch(err => console.error(err));
+  }
 
-  lots.forEach(item => {
-    const [url, name] = item.split(";");
-    const a = document.createElement("a");
-    a.href = url.trim();
-    a.target = "_blank";
-    a.textContent = name.trim();
-    container.appendChild(a);
-  });
+  window.addEventListener('DOMContentLoaded', init);
 </script>
 
 </body>
