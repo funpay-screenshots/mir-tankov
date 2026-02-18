@@ -43,25 +43,30 @@
   <!-- Лоты будут загружаться автоматически -->
 </div>
 
+<!-- Tabletop.js для работы с Google Sheet -->
 <script src="https://cdn.jsdelivr.net/npm/tabletop@1.6.0/src/tabletop.min.js"></script>
 <script>
+  // Вставь сюда ссылку на свой Google Sheet
   const publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1jR39CO9Fmp11gm3Mkom4xA-eD8kdqqO5GvT2xH1PnQM/edit?usp=sharing';
 
   function init() {
     Tabletop.init({
       key: publicSpreadsheetUrl,
-      simpleSheet: true
+      simpleSheet: false
     }).then(function(data) {
       const container = document.getElementById('lotContainer');
-      data.forEach(row => {
-        // Берём первые две колонки по индексу
-        const name = row[Object.keys(row)[0]];   // вторая колонка
-        const url = row[Object.keys(row)[1]];    // первая колонка
-        const a = document.createElement('a');
-        a.href = url.trim();
-        a.target = "_blank";
-        a.textContent = name.trim();
-        container.appendChild(a);
+      const sheet = data.sheets[data.sheetsArray[0].name];
+      sheet.forEach(row => {
+        // Берём значения по порядку колонок
+        const name = row.elements[0]; // первая колонка = название
+        const url = row.elements[1];  // вторая колонка = ссылка
+        if (name && url) {
+          const a = document.createElement('a');
+          a.href = url.trim();
+          a.target = "_blank";
+          a.textContent = name.trim();
+          container.appendChild(a);
+        }
       });
     }).catch(err => console.error(err));
   }
