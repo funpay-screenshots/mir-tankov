@@ -54,7 +54,7 @@
   const container = document.getElementById("lotContainer");
 
   lots.forEach(item => {
-    const [url, name] = item.split(",");
+    const [url, name] = item.split(";");
     const a = document.createElement("a");
     a.href = url.trim();
     a.target = "_blank";
